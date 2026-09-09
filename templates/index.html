@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The 22-work database, selection scope, source links, additional literature, and dated resource checks accompanying a concise survey of planetary robotics simulation.">
+  <meta name="color-scheme" content="light">
+  <title>Planetary Robotics Simulation — Survey Companion</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%232c5c52'/%3E%3Ccircle cx='20' cy='20' r='11' fill='none' stroke='%23faf8f2' stroke-width='2'/%3E%3Cpath d='M5 25L35 15' stroke='%23faf8f2' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#overview"><span class="orbit-mark" aria-hidden="true">◌</span> Planetary Simulation <span class="wordmark-note">/ Research companion</span></a>
+    <nav aria-label="Main navigation"><a href="#scope">Scope</a><a href="#database">Database</a><a href="#screening">Additional works</a><a href="#verification">Verification</a></nav>
+  </header>
+  <main id="main">
+    <section class="hero section-shell" id="overview" aria-labelledby="page-title">
+      <div class="eyebrow"><span class="small-rule"></span> A concise survey · Supporting materials</div>
+      <h1 id="page-title">Simulation for Planetary<br class="desktop-break"> Robotic Perception<br class="desktop-break"> and Autonomy</h1>
+      <p class="subtitle">A Concise Survey of Recent Capabilities and Gaps</p>
+      <p class="hero-intro">Explore the works behind the survey: what they simulate, what they report, where their resources can be found, and when those links were checked.</p>
+      <div class="hero-actions"><a class="button primary" href="#database">Explore the database <span aria-hidden="true">↗</span></a><a class="button secondary" href="./data/survey.csv" download>Download CSV <span aria-hidden="true">↓</span></a></div>
+      <dl class="stat-strip"><div><dt>Works in the paper</dt><dd>22</dd></div><div><dt>Analysis axes</dt><dd>04</dd></div><div><dt>Years represented</dt><dd>2020–2026</dd></div><div><dt>Companion updated</dt><dd class="date">@@UPDATED@@</dd></div></dl>
+      <p class="source-line">Baseline: the paper’s Table I, Sections III–V, and bibliography. Additional literature and current link checks are documented separately from the paper’s 22-work dataset.</p>
+    </section>
+    <section class="section-shell" id="scope" aria-labelledby="scope-title">
+      <div class="section-heading"><span class="section-number">01 / Scope</span><h2 id="scope-title">What the survey covers</h2><p>A bounded set of simulation works for planetary surface and near-surface perception and autonomy.</p></div>
+      <div class="scope-grid">
+        <div><h3>Included in the survey’s scope</h3><ul class="plain-list"><li>Works from 2020 onward with publicly accessible scholarly documentation.</li><li>Simulators, rendering pipelines, synthetic-data generators, and benchmark environments relevant to planetary robotic perception and autonomy.</li><li>Both released and unreleased study artifacts, provided the scholarly-documentation criterion is met.</li></ul></div>
+        <div><h3>Excluded by the stated criteria</h3><ul class="plain-list"><li>General-purpose simulation engines considered on their own.</li><li>Internal tools and challenge-only environments.</li><li>Projects without accompanying scholarly documentation.</li></ul><p class="caption">These are the categories stated in Section III-A. They are not a reconstructed list of individual rejected papers.</p></div>
+      </div>
+      <div class="axes" aria-label="The four analysis axes">
+        <article><span>01</span><h3>Openness &amp; availability</h3><p>Reported access to a work’s implementation, data, or public engine basis.</p></article>
+        <article><span>02</span><h3>Scenario &amp; platform coverage</h3><p>Target domains and the primary robot platform or task relevance.</p></article>
+        <article><span>03</span><h3>Sensor &amp; perception support</h3><p>Sensors, rendered observations, and outputs reported by each work.</p></article>
+        <article><span>04</span><h3>Environmental &amp; operational realism</h3><p>Terrain, contact, and rendering assumptions alongside execution constraints.</p></article>
+      </div>
+      <details class="method-note" open><summary>Selection records and limits of the evidence</summary><div class="note-content">
+        <p>The paper presents a bounded survey, not an exhaustive census. Percentages describe the selected works; they are not estimates of prevalence across the entire field. The years represented in Table I do not establish a literature-search cutoff date.</p>
+        <dl class="method-fields"><div><dt>Search databases and exact queries</dt><dd>Not recorded in the supplied paper materials.</dd></div><div><dt>Original search cutoff and screening dates</dt><dd>Not recorded in the supplied paper materials.</dd></div><div><dt>Candidate counts and individual exclusion log</dt><dd>Not recorded in the supplied paper materials.</dd></div><div><dt>Original per-resource access-check dates</dt><dd>Not recorded for the Table I resources. The checks below were performed for this companion update.</dd></div></dl>
+        <p class="caption">Missing historical records are left explicit. Dates, search procedures, and original exclusion reasons are not inferred from publication years or later checks.</p>
+      </div></details>
+    </section>
+    <section class="database-section" id="database" aria-labelledby="database-title"><div class="section-shell">
+      <div class="section-heading"><span class="section-number">02 / Paper dataset</span><h2 id="database-title">The 22 surveyed works</h2><p>Open a record for its profile, bibliographic source, resource links, and dated checks.</p></div>
+      <div class="dataset-summary"><div><h3>Availability reported in the paper</h3><p><strong>12</strong> direct · <strong>1</strong> request · <strong>9</strong> without a listed release</p></div><div><h3>Primary platform or task relevance</h3><p><strong>16</strong> rover-relevant · <strong>3</strong> construction · <strong>2</strong> aerial · <strong>1</strong> multi-platform</p></div></div>
+      <p class="caption">Profiles reproduce Table I; grouping follows Fig. 4. A resource’s current HTTP response does not change the paper’s access classification. The Chrono entry links to the public engine basis, as noted in its record.</p>
+      <form id="filters" class="filter-bar" role="search" hidden>
+        <div class="search-field"><label for="search">Search records</label><input id="search" type="search" placeholder="Work, engine, sensor, or paper title…" autocomplete="off"></div>
+        <div><label for="domain">Domain</label><select id="domain"><option value="">All domains</option><option>Lunar</option><option>Mars</option><option>Cross-domain</option><option>Icy moon</option></select></div>
+        <div><label for="platform">Platform / task</label><select id="platform"><option value="">All platforms</option><option value="Rover-relevant">Rover-relevant</option><option>Construction</option><option>Aerial</option><option>Multi-platform</option></select></div>
+        <div><label for="access">Paper access</label><select id="access"><option value="">All access types</option><option>Direct</option><option>Request</option><option>No release listed</option></select></div>
+        <button class="reset-button" type="reset">Reset</button>
+      </form>
+      <div class="database-toolbar"><p id="record-count" role="status" aria-live="polite">22 of 22 works</p><div><a href="./data/survey.csv" download>CSV ↓</a><a href="./data/survey.json" download>JSON ↓</a><a href="./data/references.bib" download>BibTeX ↓</a></div></div>
+      <div class="record-head" aria-hidden="true"><span>Work</span><span>Year</span><span>Domain</span><span>Category</span><span>Paper access</span></div>
+      <div id="records">@@RECORDS@@</div>
+      <p class="empty-state" id="empty-state" hidden>No works match these filters. Try another term or reset the filters.</p>
+      <details class="method-note glossary"><summary>How to read these records</summary><div class="note-content"><p><strong>Not reported</strong> means the paper does not list the field, not that a capability is absent. Reported support refers to functionality described by the work, rather than hypothetical engine features. A public repository is not a guarantee that all study-specific assets or experiments are released.</p><p><strong>Rover-relevant</strong> in the distribution includes rovers and terrain, stereo/depth, or planning inputs useful to rover autonomy. Each work is counted once under its primary category. Cross-domain is a navigation group for planetary-generic and combined lunar/Mars entries.</p><p><strong>Abbreviations:</strong> R1/R2 = ROS 1/ROS 2; St = stereo; Sem = semantic; Seg = segmentation; Enc = wheel encoder; Alt = altimeter; Inc = inclinometer; DEM = digital elevation model; LDEM = lunar DEM; proc. = procedural; synth. = synthetic; Exc./Truck = excavator/truck.</p></div></details>
+    </div></section>
+    <section class="section-shell" id="screening" aria-labelledby="screening-title">
+      <div class="section-heading"><span class="section-number">03 / Beyond the dataset</span><h2 id="screening-title">Additional works &amp; screening notes</h2><p>Related literature that is not part of the paper’s 22-work comparison. These records do not contribute to the totals above.</p></div>
+      <p class="section-intro">The paper identifies some studies as related work outside the core set. Other relevant frameworks can be documented here without retrospectively changing the accepted paper’s dataset. A present-day scope assessment is kept separate from an original exclusion decision.</p>
+      <div class="related-list">@@RELATED@@</div>
+    </section>
+    <section class="verification-section" id="verification" aria-labelledby="verification-title"><div class="section-shell">
+      <div class="section-heading"><span class="section-number">04 / Sources &amp; verification</span><h2 id="verification-title">A date, a link, and a clear limit</h2><p>Each check records what could be established at the time it was made.</p></div>
+      <div class="verification-grid"><div><h3>Where the information comes from</h3><p>Work profiles and paper classifications come from Table I and the surrounding discussion. Titles and publication identifiers come from the paper’s bibliography. Source and artifact links are shown separately in every record.</p><p>SRB’s scope note uses its own paper, specifically Sections III-C, III-D and IV. The other additional-work notes follow the survey’s Section III-E. No original rejection rationale is claimed where one was not recorded.</p></div><div><h3>What a link check establishes</h3><p>Checks use unauthenticated HTTP requests. “HTTP reachable” records an HTTP 200 response with page content; it does not verify all content, licensing, installation, simulation fidelity, or reproducibility.</p><p>Access restrictions, unconfirmed responses, missing pages, and request failures are reported separately. A failed or unconfirmed attempt receives a check date, but no new confirmed-reachable date. It does not prove that a resource is unavailable to every reader.</p></div></div>
+      <div class="check-summary">@@CHECK_SUMMARY@@</div>
+      <details class="method-note"><summary>View the complete link-check register</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Link-check register"><table class="check-table"><caption>Recorded responses for publication and artifact URLs. Dates are UTC.</caption><thead><tr><th scope="col">Resource</th><th scope="col">Checked</th><th scope="col">Result</th><th scope="col">Confirmed reachable</th></tr></thead><tbody>@@CHECK_ROWS@@</tbody></table></div></details>
+      <p class="download-line"><a href="./data/link-checks.json" download>Download verification records (JSON) ↓</a></p>
+      <div class="update-note"><h3>Update record</h3><p><time datetime="@@UPDATED@@">@@UPDATED@@</time> — Initial companion database transcribed from the paper, including all 22 Table I works, selection criteria, source links, current resource checks, and three additional-literature notes. Historical search and screening records remain unspecified where the paper does not provide them.</p></div>
+    </div></section>
+  </main>
+  <footer class="section-shell"><p>Planetary Robotics Simulation · Survey Companion</p><p>Paper dataset and companion notes are distinguished throughout. <a href="#overview">Back to top ↑</a></p></footer>
+</body>
+</html>
