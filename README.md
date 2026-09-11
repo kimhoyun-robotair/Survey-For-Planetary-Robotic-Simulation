@@ -1,54 +1,65 @@
-# Planetary Robotics Simulation — Survey Companion
+# Planetary Robotics Simulation Survey
 
-English supporting materials for *Simulation for Planetary Robotic Perception and Autonomy: A Concise Survey of Recent Capabilities and Gaps*.
+Project page and browsable database for **Simulation for Planetary Robotic Perception and Autonomy: A Concise Survey of Recent Capabilities and Gaps**, accepted at **iSpaRo 2026 — IEEE International Conference on Space Robotics**.
 
-Project Page Address: https://kimhoyun-robotair.github.io/Survey-For-Planetary-Robotic-Simulation/
+**Hoyun Kim and Giseop Kim**
 
-## Content and evidence
+Department of Robotics and Mechatronics Engineering, DGIST, Daegu, Republic of Korea.
 
-- The database reproduces all 22 works in Table I, including the paper's access and platform classifications.
-- Each record includes the paper's reference number, a scholarly source when an identifier is recorded, the listed artifact URL, and current link-check results.
-- SRB is documented as an additional related framework. Kamohara et al. and Kern et al. are identified by the paper as related work outside its core set. None changes the 22-work totals.
-- Original search databases, exact queries, cutoff dates, and individual screening reasons are marked as unrecorded where the supplied materials do not establish them.
-- A response check is not a reproduction test. Unconfirmed or restricted responses do not establish global unavailability.
+Corresponding author: Giseop Kim.
 
-## Files
+[Project page](https://kimhoyun-robotair.github.io/Survey-For-Planetary-Robotic-Simulation/) · [Paper](SurveyForPlanetaryRoboticSimulation.pdf)
 
-| File | Purpose |
-| --- | --- |
-| `data/survey.json` | Curated source of truth: paper baseline and additional-work notes |
-| `data/link-checks.json` | Dated response checks for publication and artifact URLs |
-| `data/survey.csv` | Downloadable paper dataset, joined with current link-check results |
-| `data/references.bib` | Bibliographic metadata for the 22 paper records |
-| `templates/index.html` | English page content and static-page template |
-| `scripts/build.py` | Validates baseline totals and generates HTML, CSV, and BibTeX |
-| `scripts/check_links.py` | Refreshes the current link-check snapshot without changing paper classifications |
-| `index.html`, `style.css`, `app.js` | Static site ready for hosting |
+## Page content
 
-## Update and preview
+- Full paper title, authors, affiliation, abstract, and a direct Paper link.
+- Figure 5, extracted from page 6 of the supplied PDF with all seven explanation blocks intact. Its caption preserves the paper’s acknowledgement that the Mars scene was generated with ChatGPT Image 2.0.
+- All 22 Table I works, with search, domain/platform/access filters, expandable profiles, scholarly sources, and study-artifact links.
+- Three separate related-work notes and dated link responses. These additions do not change the paper’s comparison or counts.
 
-Python 3.10 or newer is sufficient; the scripts use only the standard library.
+The page is static HTML with progressive JavaScript enhancement. Records, disclosures, images, and paper links remain usable without JavaScript. It uses system fonts and no analytics or third-party scripts.
+
+## Build and preview
+
+Python 3.10 or newer is sufficient for the build; there are no third-party Python dependencies.
 
 ```sh
 python3 scripts/build.py
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open the preview in a browser using port 8000. Search and filters progressively enhance the page; records and links remain readable without JavaScript.
+Open `http://127.0.0.1:8000`. Relative asset links also support the GitHub Pages project subdirectory.
 
-To check links again, run the following before rebuilding:
+To refresh public link responses:
 
 ```sh
 python3 scripts/check_links.py
 python3 scripts/build.py
 ```
 
-This replaces the latest check snapshot. Preserve prior snapshots through version control when maintaining a history. Review responses before interpreting them: an HTTP 202 or an access restriction is not a confirmed resource page.
+To compare the database directly with the supplied paper:
 
-## Curation rules
+```sh
+python3 scripts/verify_catalog.py
+```
 
-Keep paper classifications fixed to the cited baseline. Record new literature in `additional_works`; explain present-day editorial treatment separately from any documented original decision. Do not invent a past search or exclusion history. A missing link is an explicit gap, not a placeholder URL.
+The PDF comparison requires the installed Poppler utilities `pdftotext` and `pdftohtml`; the ordinary build and hosted page do not. It checks every Table I cell, citation title/first author/year, and listed artifact link. See [VERIFICATION.md](VERIFICATION.md) for the current review and its limits.
 
-The source PDF checksum identifies the paper used for transcription. The source document itself is not bundled. Public artifacts contain only selected bibliographic, survey, and resource-check fields; omit private contact details, local paths, host identifiers, request headers, and raw diagnostic output. The website uses no analytics, external fonts, or third-party scripts.
+## Maintenance
 
-The build prepares local files. Publishing them is a separate repository operation.
+| File | Purpose |
+| --- | --- |
+| `SurveyForPlanetaryRoboticSimulation.pdf` | Accepted paper opened by the Paper button |
+| `assets/figure-5.png` | Complete Figure 5, rendered from the supplied PDF |
+| `templates/index.html` | Page structure, abstract, captions, and explanatory text |
+| `scripts/catalog.py` | Curated source records for the page builder |
+| `scripts/link_status.py` | Latest dated resource responses |
+| `scripts/models.py` | Record types shared by the maintenance scripts |
+| `scripts/build.py` | Record validation and static HTML generation |
+| `scripts/check_links.py` | Resource-response refresh |
+| `scripts/verify_catalog.py` | Independent comparison with the supplied PDF |
+| `index.html`, `style.css`, `app.js` | Website served directly by the host |
+
+Edit the template or catalog and rebuild; do not hand-edit generated records in `index.html`. Keep the paper’s classifications fixed and place new literature in the additional-work list. Explain source supplements or disagreements in the relevant record. A response check does not establish installation success or reproducibility, and an unconfirmed response does not establish global unavailability.
+
+The supplied paper and in-repository figure are sufficient for the website. Its build has no dependency on the separate paper-writing repository. Local generation does not publish the site.

@@ -1,14 +1,20 @@
-"""Build the static companion and downloads from the curated public records."""
+"""Validate the curated records and build the static project page."""
 
-import csv
 import html
-import json
+import sys
 from collections import Counter
 from datetime import date, datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
+if __package__ in (None, ""):
+    sys.path.insert(0, str(ROOT))
+
+from scripts.catalog import SURVEY
+from scripts.link_status import CHECKS
+from scripts.models import LinkCheck, RelatedWork, Survey, Work
+
 STATUS = {
     "reachable": "HTTP reachable",
     "access_restricted": "Access restricted",
@@ -23,16 +29,39 @@ def esc(value: object) -> str:
     return html.escape(str(value))
 
 
-def validate(survey: dict, checks: list[dict]) -> None:
+def validate(survey: Survey, checks: list[LinkCheck]) -> None:
     works = survey["works"]
     if len(works) != 22 or len({w["id"] for w in works}) != 22:
         raise ValueError("The paper dataset must contain 22 uniquely identified works.")
+    if {w["paper_reference"] for w in works} != set(range(8, 30)):
+        raise ValueError("The paper records must cover references [8] through [29] exactly once.")
+    records = works + survey["additional_works"]
+    if len({w["id"] for w in records}) != len(records):
+        raise ValueError("Core and additional records must have distinct identifiers.")
+    for work in works:
+        if work["year"] != int(work["bibliography"]["year"]):
+            raise ValueError(f"Conflicting publication years for {work['name']}.")
+        bib = work["bibliography"]
+        source_url = (f"https://doi.org/{bib['doi']}" if bib["doi"] else
+                      f"https://arxiv.org/abs/{bib['eprint']}" if bib["eprint"] else None)
+        if source_url and work["publication_url"] != source_url:
+            raise ValueError(f"The scholarly link does not match the identifier for {work['name']}.")
+        if work["domain"] not in {*DOMAIN, "Mars", "Lunar", "Icy moon"}:
+            raise ValueError(f"Unknown domain for {work['name']}.")
+        category = work["category"]
+        group = ("Construction" if category in ("Excavator", "Exc./Truck") else
+                 category if category in ("Aerial", "Multi-platform") else
+                 "Rover-relevant" if category in ("Rover", "Rover-relevant") else None)
+        if group is None or work["platform_group"] != group:
+            raise ValueError(f"Conflicting platform classification for {work['name']}.")
+        if bool(work["resource_url"]) != (work["access_as_reported"] != "No release listed"):
+            raise ValueError(f"Conflicting release link for {work['name']}.")
     if Counter(w["access_as_reported"] for w in works) != {"Direct": 12, "Request": 1, "No release listed": 9}:
         raise ValueError("Access counts must match the paper baseline.")
     if Counter(w["platform_group"] for w in works) != {"Rover-relevant": 16, "Construction": 3, "Aerial": 2, "Multi-platform": 1}:
         raise ValueError("Platform counts must match the paper baseline.")
     date.fromisoformat(survey["updated_on"])
-    urls = {r[field] for r in works + survey["additional_works"]
+    urls = {r[field] for r in records
             for field in ("publication_url", "resource_url") if r[field]}
     if {c["url"] for c in checks} != urls or len(checks) != len(urls):
         raise ValueError("Every listed external resource needs exactly one check record.")
@@ -42,6 +71,9 @@ def validate(survey: dict, checks: list[dict]) -> None:
         datetime.fromisoformat(check["checked_at"])
         if check["confirmed_reachable_on"] and check["status"] != "reachable":
             raise ValueError("An unsuccessful check cannot claim confirmed reachability.")
+        if check["status"] == "reachable" and (check["http_status"] != 200 or
+                check["confirmed_reachable_on"] != check["checked_at"][:10]):
+            raise ValueError("A reachable result needs a successful response and matching date.")
         for url in (check["url"], check["final_url"]):
             if url:
                 parsed = urlparse(url)
@@ -49,12 +81,12 @@ def validate(survey: dict, checks: list[dict]) -> None:
                     raise ValueError("Only public HTTPS resource URLs are allowed.")
 
 
-def result_label(check: dict) -> str:
+def result_label(check: LinkCheck) -> str:
     code = f" · HTTP {check['http_status']}" if check["http_status"] else ""
     return STATUS[check["status"]] + code
 
 
-def resource(label: str, url: str | None, checks: dict) -> str:
+def resource(label: str, url: str | None, checks: dict[str, LinkCheck]) -> str:
     if not url:
         return f'<div class="resource-block"><h4>{esc(label)}</h4><p class="check-meta">No link recorded in the paper.</p></div>'
     check = checks[url]
@@ -66,7 +98,7 @@ def resource(label: str, url: str | None, checks: dict) -> str:
             f'<br>{esc(result_label(check))}<br>Confirmed reachable: {esc(confirmed)}</p></div>')
 
 
-def record(work: dict, checks: dict) -> str:
+def record(work: Work, checks: dict[str, LinkCheck]) -> str:
     domain = DOMAIN.get(work["domain"], work["domain"])
     domain_group = "Cross-domain" if work["domain"] in DOMAIN else domain
     access = work["access_as_reported"]
@@ -93,7 +125,7 @@ def record(work: dict, checks: dict) -> str:
             + f'</div>{note}<p class="evidence-line">Evidence: {esc(work["evidence"])}</p></div></details>')
 
 
-def related(work: dict, checks: dict) -> str:
+def related(work: RelatedWork, checks: dict[str, LinkCheck]) -> str:
     return (f'<article class="related-work" id="related-{esc(work["id"])}"><div><span class="badge">{esc(work["status"])}</span>'
             f'<h3>{esc(work["name"])}</h3><p class="related-year">{work["year"]}</p></div><div class="related-content">'
             f'<p class="record-title">{esc(work["title"])}</p><p>{esc(work["scope_note"])}</p><p>{esc(work["decision_note"])}</p>'
@@ -104,41 +136,10 @@ def related(work: dict, checks: dict) -> str:
             + '</div></div></article>')
 
 
-def downloads(works: list[dict], checks: dict) -> None:
-    rows = []
-    bibliography = []
-    for work in works:
-        bib = work["bibliography"]
-        row = {k: work[k] for k in ("id", "name", "year", "domain", "category", "platform_group", "engine", "ros",
-                                  "access_as_reported", "terrain", "sensors", "publication_url", "resource_url",
-                                  "resource_type", "paper_reference", "evidence", "note")}
-        row.update({k: bib[k] for k in ("title", "author", "doi", "eprint")})
-        for prefix in ("publication", "resource"):
-            check = checks.get(work[prefix + "_url"], {})
-            row[prefix + "_last_checked"] = check.get("checked_at")
-            row[prefix + "_check_result"] = check.get("status")
-            row[prefix + "_confirmed_reachable_on"] = check.get("confirmed_reachable_on")
-        rows.append(row)
-        kind = "article" if bib["journal"] else "inproceedings" if bib["booktitle"] else "misc"
-        fields = {k: v for k, v in bib.items() if v}
-        if bib["eprint"]:
-            fields["archivePrefix"] = "arXiv"
-        if work["publication_url"]:
-            fields["url"] = work["publication_url"]
-        entries = ",\n".join(f"  {key} = {{{value}}}" for key, value in fields.items())
-        bibliography.append(f"@{kind}{{{work['id']},\n{entries}\n}}")
-    with (ROOT / "data/survey.csv").open("w", newline="", encoding="utf-8") as output:
-        writer = csv.DictWriter(output, fieldnames=list(rows[0]))
-        writer.writeheader()
-        writer.writerows(rows)
-    (ROOT / "data/references.bib").write_text("\n\n".join(bibliography) + "\n", encoding="utf-8")
-
-
 def main() -> None:
-    survey = json.loads((ROOT / "data/survey.json").read_text(encoding="utf-8"))
-    check_data = json.loads((ROOT / "data/link-checks.json").read_text(encoding="utf-8"))
-    validate(survey, check_data["checks"])
-    checks = {c["url"]: c for c in check_data["checks"]}
+    survey = SURVEY
+    validate(survey, CHECKS)
+    checks = {c["url"]: c for c in CHECKS}
     html_template = (ROOT / "templates/index.html").read_text(encoding="utf-8")
     totals = Counter(c["status"] for c in checks.values())
     summary = f'<p><strong>{len(checks)}</strong> links checked</p>' + "".join(
@@ -154,8 +155,7 @@ def main() -> None:
     for token, value in replacements.items():
         html_template = html_template.replace(token, value)
     (ROOT / "index.html").write_text(html_template, encoding="utf-8")
-    downloads(survey["works"], checks)
-    print(f"Built index.html, 22 CSV/BibTeX records, and {len(checks)} visible link checks.")
+    print(f"Built index.html with 22 surveyed works and {len(checks)} visible link checks.")
 
 
 if __name__ == "__main__":

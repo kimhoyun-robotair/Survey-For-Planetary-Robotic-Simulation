@@ -3,26 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="The 22-work database, selection scope, source links, additional literature, and dated resource checks accompanying a concise survey of planetary robotics simulation.">
+  <meta name="description" content="An iSpaRo 2026 paper by Hoyun Kim and Giseop Kim. Explore 22 simulation works for planetary robotic perception and autonomy, their capabilities, resources, and research gaps.">
   <meta name="color-scheme" content="light">
-  <title>Planetary Robotics Simulation — Survey Companion</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%232c5c52'/%3E%3Ccircle cx='20' cy='20' r='11' fill='none' stroke='%23faf8f2' stroke-width='2'/%3E%3Cpath d='M5 25L35 15' stroke='%23faf8f2' stroke-width='2'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#101b2b">
+  <title>Simulation for Planetary Robotic Perception and Autonomy: A Concise Survey of Recent Capabilities and Gaps</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
   <script src="./app.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <a class="wordmark" href="#overview"><span class="orbit-mark" aria-hidden="true">◌</span> Planetary Simulation <span class="wordmark-note">/ Research companion</span></a>
-    <nav aria-label="Main navigation"><a href="#scope">Scope</a><a href="#database">Database</a><a href="#screening">Additional works</a><a href="#verification">Verification</a></nav>
+    <a class="wordmark" href="#overview">Planetary Simulation <span class="wordmark-note">/ Survey</span></a>
+    <nav aria-label="Main navigation"><a href="#abstract">Abstract</a><a href="#database">Database</a><a href="#screening">Related works</a><a href="#verification">Sources</a></nav>
   </header>
   <main id="main">
-    <section class="hero section-shell" id="overview" aria-labelledby="page-title">
-      <div class="eyebrow"><span class="small-rule"></span> A concise survey · Supporting materials</div>
-      <h1 id="page-title">Simulation for Planetary<br class="desktop-break"> Robotic Perception<br class="desktop-break"> and Autonomy</h1>
-      <p class="subtitle">A Concise Survey of Recent Capabilities and Gaps</p>
-      <p class="hero-intro">Explore the works behind the survey: what they simulate, what they report, where their resources can be found, and when those links were checked.</p>
-      <div class="hero-actions"><a class="button primary" href="#database">Explore the database <span aria-hidden="true">↗</span></a><a class="button secondary" href="./data/survey.csv" download>Download CSV <span aria-hidden="true">↓</span></a></div>
+    <section class="hero" id="overview" aria-labelledby="page-title"><div class="section-shell hero-content">
+      <p class="eyebrow">Accepted at iSpaRo 2026 <span class="conference-name">IEEE International Conference on Space Robotics</span></p>
+      <h1 id="page-title">Simulation for Planetary<br class="desktop-break"> Robotic Perception and Autonomy: <span class="title-subtitle">A Concise Survey of Recent Capabilities and Gaps</span></h1>
+      <p class="authors">Hoyun Kim<sup>1</sup><span class="author-separator" aria-hidden="true">·</span>Giseop Kim<sup>1,†</sup></p>
+      <p class="affiliation"><sup>1</sup> Department of Robotics and Mechatronics Engineering<br>DGIST, Daegu, Republic of Korea</p>
+      <p class="corresponding-author">† Corresponding author: Giseop Kim</p>
+      <div class="hero-actions"><a class="button primary" href="./SurveyForPlanetaryRoboticSimulation.pdf" target="_blank" rel="noopener">Paper <span class="button-detail">PDF</span></a><a class="button secondary" href="#database">Explore the database <span aria-hidden="true">↗</span></a></div>
+    </div></section>
+    <section class="section-shell paper-introduction" aria-labelledby="abstract-title">
+      <div class="abstract" id="abstract">
+        <h2 id="abstract-title">Abstract</h2>
+        <p>Planetary robotics is an important enabler of scientific exploration in environments where direct human-in-the-loop operation is costly, hazardous, or infeasible. However, developing and validating planetary robotic systems remains difficult because representative field testing is expensive, limited, and often unrepeatable under mission-relevant conditions. In this setting, simulation serves as a central tool for perception and autonomy research, synthetic data generation, system integration, and pre-deployment evaluation. Despite its importance, the literature on planetary robotics simulation remains dispersed across different simulation engines, implementations, and application settings. This paper surveys simulation works for planetary robotic perception and autonomy across four practical axes: Openness and Availability, Scenario and Platform Coverage, Sensor and Perception Support, and Environmental and Operational Realism. The surveyed simulation works report visual or physical fidelity and support perception-oriented workflows. They also indicate uneven public availability, rover-centered coverage, partial support for specialized sensing modalities, and limited treatment of operational constraints such as onboard computation, energy, and communication restrictions. Detailed selection criteria, the survey database, and resource links with verification dates are available on our project website at <a href="https://kimhoyun-robotair.github.io/Survey-For-Planetary-Robotic-Simulation/">https://kimhoyun-robotair.github.io/Survey-For-Planetary-Robotic-Simulation/</a>.</p>
+      </div>
+      <figure class="featured-figure" id="figure-5">
+        <a class="figure-link" href="./assets/figure-5.png" target="_blank" rel="noopener" aria-label="View Figure 5 at full resolution (opens in a new tab)"><img src="./assets/figure-5.png" width="2020" height="1334" alt="Figure 5. A Mars mission scene with a rover and aerial robot, annotated with seven factors: terrain interaction, illumination and visual conditions, gravity and contact regime, communication, onboard resources, platform diversity, and the sensor and autonomy stack. Seven explanation blocks below the scene pair each factor with its implication and reporting gap."></a>
+        <figcaption><p><strong>Figure 5.</strong> Mission-scene view of how environmental and operational realism factors appear in planetary simulation. The upper image provides the mission context, while the indexed blocks give an at-a-glance summary of the implication and reporting gap associated with each factor. The figure highlights that operational constraints such as communication delay, onboard computation, and energy budgets are reported less consistently than terrain, contact, illumination, or rendering assumptions.</p><p class="figure-credit">Reproduced from the paper, p. 6. The Mars scene was generated using ChatGPT Image 2.0, as acknowledged in the paper. <a href="./assets/figure-5.png" target="_blank" rel="noopener">View full-size figure ↗</a></p></figcaption>
+      </figure>
       <dl class="stat-strip"><div><dt>Works in the paper</dt><dd>22</dd></div><div><dt>Analysis axes</dt><dd>04</dd></div><div><dt>Years represented</dt><dd>2020–2026</dd></div><div><dt>Companion updated</dt><dd class="date">@@UPDATED@@</dd></div></dl>
       <p class="source-line">Baseline: the paper’s Table I, Sections III–V, and bibliography. Additional literature and current link checks are documented separately from the paper’s 22-work dataset.</p>
     </section>
@@ -55,7 +67,7 @@
         <div><label for="access">Paper access</label><select id="access"><option value="">All access types</option><option>Direct</option><option>Request</option><option>No release listed</option></select></div>
         <button class="reset-button" type="reset">Reset</button>
       </form>
-      <div class="database-toolbar"><p id="record-count" role="status" aria-live="polite">22 of 22 works</p><div><a href="./data/survey.csv" download>CSV ↓</a><a href="./data/survey.json" download>JSON ↓</a><a href="./data/references.bib" download>BibTeX ↓</a></div></div>
+      <div class="database-toolbar"><p id="record-count" role="status" aria-live="polite">22 of 22 works</p><p>Select a work to view its details</p></div>
       <div class="record-head" aria-hidden="true"><span>Work</span><span>Year</span><span>Domain</span><span>Category</span><span>Paper access</span></div>
       <div id="records">@@RECORDS@@</div>
       <p class="empty-state" id="empty-state" hidden>No works match these filters. Try another term or reset the filters.</p>
@@ -68,11 +80,10 @@
     </section>
     <section class="verification-section" id="verification" aria-labelledby="verification-title"><div class="section-shell">
       <div class="section-heading"><span class="section-number">04 / Sources &amp; verification</span><h2 id="verification-title">A date, a link, and a clear limit</h2><p>Each check records what could be established at the time it was made.</p></div>
-      <div class="verification-grid"><div><h3>Where the information comes from</h3><p>Work profiles and paper classifications come from Table I and the surrounding discussion. Titles and publication identifiers come from the paper’s bibliography. Source and artifact links are shown separately in every record.</p><p>SRB’s scope note uses its own paper, specifically Sections III-C, III-D and IV. The other additional-work notes follow the survey’s Section III-E. No original rejection rationale is claimed where one was not recorded.</p></div><div><h3>What a link check establishes</h3><p>Checks use unauthenticated HTTP requests. “HTTP reachable” records an HTTP 200 response with page content; it does not verify all content, licensing, installation, simulation fidelity, or reproducibility.</p><p>Access restrictions, unconfirmed responses, missing pages, and request failures are reported separately. A failed or unconfirmed attempt receives a check date, but no new confirmed-reachable date. It does not prove that a resource is unavailable to every reader.</p></div></div>
+      <div class="verification-grid"><div><h3>Where the information comes from</h3><p>Work profiles and paper classifications come from Table I and the surrounding discussion. Bibliographic details follow the paper’s references and are checked against publication sources. Supplementary scholarly links and venue details are identified in the relevant records. Source and artifact links are shown separately in every record.</p><p>SRB’s scope note uses its own paper, specifically Sections III-C, III-D and IV. The other additional-work notes follow the survey’s Section III-E. No original rejection rationale is claimed where one was not recorded.</p></div><div><h3>What a link check establishes</h3><p>Checks use unauthenticated HTTP requests. “HTTP reachable” records an HTTP 200 response with page content; it does not verify all content, licensing, installation, simulation fidelity, or reproducibility.</p><p>Access restrictions, unconfirmed responses, missing pages, and request failures are reported separately. A failed or unconfirmed attempt receives a check date, but no new confirmed-reachable date. It does not prove that a resource is unavailable to every reader.</p></div></div>
       <div class="check-summary">@@CHECK_SUMMARY@@</div>
       <details class="method-note"><summary>View the complete link-check register</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Link-check register"><table class="check-table"><caption>Recorded responses for publication and artifact URLs. Dates are UTC.</caption><thead><tr><th scope="col">Resource</th><th scope="col">Checked</th><th scope="col">Result</th><th scope="col">Confirmed reachable</th></tr></thead><tbody>@@CHECK_ROWS@@</tbody></table></div></details>
-      <p class="download-line"><a href="./data/link-checks.json" download>Download verification records (JSON) ↓</a></p>
-      <div class="update-note"><h3>Update record</h3><p><time datetime="@@UPDATED@@">@@UPDATED@@</time> — Initial companion database transcribed from the paper, including all 22 Table I works, selection criteria, source links, current resource checks, and three additional-literature notes. Historical search and screening records remain unspecified where the paper does not provide them.</p></div>
+      <div class="update-note"><h3>Database review</h3><p><time datetime="@@UPDATED@@">@@UPDATED@@</time> — All 22 records checked against Table I and the paper’s bibliography, with publication sources and resource links reviewed. Related literature remains separate from the paper’s comparison. Historical search and screening records remain unspecified where the paper does not provide them.</p></div>
     </div></section>
   </main>
   <footer class="section-shell"><p>Planetary Robotics Simulation · Survey Companion</p><p>Paper dataset and companion notes are distinguished throughout. <a href="#overview">Back to top ↑</a></p></footer>
