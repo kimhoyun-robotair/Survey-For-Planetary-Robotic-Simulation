@@ -39,10 +39,10 @@
       <p class="source-line">Baseline: the paper’s Table I, Sections III–V, and bibliography. Additional literature and current link checks are documented separately from the paper’s 22-work dataset.</p>
     </section>
     <section class="section-shell" id="scope" aria-labelledby="scope-title">
-      <div class="section-heading"><span class="section-number">01 / Scope</span><h2 id="scope-title">What the survey covers</h2><p>A bounded set of simulation works for planetary surface and near-surface perception and autonomy.</p></div>
+      <div class="section-heading"><span class="section-number">01 / Scope</span><h2 id="scope-title">What the survey covers</h2><p>Simulation, rendering, synthetic-data generation, and benchmark works for planetary surface and near-surface perception and autonomy.</p></div>
       <div class="scope-grid">
-        <div><h3>Included in the survey’s scope</h3><ul class="plain-list"><li>Works from 2020 onward with publicly accessible scholarly documentation.</li><li>Simulators, rendering pipelines, synthetic-data generators, and benchmark environments relevant to planetary robotic perception and autonomy.</li><li>Both released and unreleased study artifacts, provided the scholarly-documentation criterion is met.</li></ul></div>
-        <div><h3>Excluded by the stated criteria</h3><ul class="plain-list"><li>General-purpose simulation engines considered on their own.</li><li>Internal tools and challenge-only environments.</li><li>Projects without accompanying scholarly documentation.</li></ul><p class="caption">These are the categories stated in Section III-A. They are not a reconstructed list of individual rejected papers.</p></div>
+        <div><h3>Included in the survey’s scope</h3><ul class="plain-list"><li>Works from 2020 onward with publicly accessible scholarly documentation.</li><li>Simulators, rendering pipelines, synthetic-data generators, and benchmark environments relevant to planetary robotic perception and autonomy.</li><li>A public code or data release is not required: works with scholarly documentation can be included even when their study artifacts are unreleased.</li></ul></div>
+        <div><h3>Excluded by the stated criteria</h3><ul class="plain-list"><li>General-purpose simulation engines considered on their own.</li><li>Internal tools and challenge-only environments.</li><li>Projects without accompanying scholarly documentation.</li></ul><p class="caption">Selection criteria: <a href="./SurveyForPlanetaryRoboticSimulation.pdf#page=3" target="_blank" rel="noopener">Section III-A, p. 3 ↗</a>.</p></div>
       </div>
       <div class="axes" aria-label="The four analysis axes">
         <article><span>01</span><h3>Openness &amp; availability</h3><p>Reported access to a work’s implementation, data, or public engine basis.</p></article>
@@ -50,10 +50,15 @@
         <article><span>03</span><h3>Sensor &amp; perception support</h3><p>Sensors, rendered observations, and outputs reported by each work.</p></article>
         <article><span>04</span><h3>Environmental &amp; operational realism</h3><p>Terrain, contact, and rendering assumptions alongside execution constraints.</p></article>
       </div>
-      <details class="method-note" open><summary>Selection records and limits of the evidence</summary><div class="note-content">
-        <p>The paper presents a bounded survey, not an exhaustive census. Percentages describe the selected works; they are not estimates of prevalence across the entire field. The years represented in Table I do not establish a literature-search cutoff date.</p>
-        <dl class="method-fields"><div><dt>Search databases and exact queries</dt><dd>Not recorded in the supplied paper materials.</dd></div><div><dt>Original search cutoff and screening dates</dt><dd>Not recorded in the supplied paper materials.</dd></div><div><dt>Candidate counts and individual exclusion log</dt><dd>Not recorded in the supplied paper materials.</dd></div><div><dt>Original per-resource access-check dates</dt><dd>Not recorded for the Table I resources. The checks below were performed for this companion update.</dd></div></dl>
-        <p class="caption">Missing historical records are left explicit. Dates, search procedures, and original exclusion reasons are not inferred from publication years or later checks.</p>
+      <details class="method-note" open><summary>How the 22 works are compared</summary><div class="note-content">
+        <p>The comparison covers the 22 works in Table I, published between 2020 and 2026. These include complete simulators and task-specific tools, such as terrain renderers, synthetic-data pipelines, and planning benchmarks. Their capabilities are interpreted in relation to the tasks they support.</p>
+        <dl class="method-fields">
+          <div><dt>Comparison fields</dt><dd>Table I records each work’s target domain, primary platform or task, engine or tool, ROS support, release access, terrain source, and sensors or outputs. Sections III-B–E discuss the works along the four analysis axes above.</dd></div>
+          <div><dt>Evidence for sensor support</dt><dd>Support means functionality reported as implemented and exposed by the work itself. Possible features of its underlying engine are not counted. A capability that is not reported is not treated as absent.</dd></div>
+          <div><dt>Counts and percentages</dt><dd>Each work is counted once in the availability and primary platform or task distributions. Percentages use these 22 works as the denominator and describe this selected set; they do not estimate prevalence across the entire field.</dd></div>
+          <div><dt>Publication years and resource checks</dt><dd>The 2020–2026 range describes the publication years represented in Table I, not a literature-search cutoff. Resource-check dates on this page show when links were checked for the companion update.</dd></div>
+        </dl>
+        <p class="caption">Search-history limitation: the paper does not specify the search databases, exact queries, search or screening dates, candidate counts, individual exclusion decisions, or original resource-check dates.</p>
       </div></details>
     </section>
     <section class="database-section" id="database" aria-labelledby="database-title"><div class="section-shell">
