@@ -16,11 +16,11 @@ from scripts.link_status import CHECKS
 from scripts.models import LinkCheck, RelatedWork, Survey, Work
 
 STATUS = {
-    "reachable": "HTTP reachable",
+    "reachable": "Access confirmed",
     "access_restricted": "Access restricted",
-    "response_unconfirmed": "Response unconfirmed",
-    "not_found": "Missing-page response",
-    "request_failed": "Request failed",
+    "response_unconfirmed": "Access not confirmed",
+    "not_found": "Page not found",
+    "request_failed": "Check could not be completed",
 }
 DOMAIN = {"Planet.": "Planetary / generic", "Lu./Ma.": "Lunar / Mars", "Ma./Lu.": "Mars / Lunar"}
 
@@ -82,8 +82,7 @@ def validate(survey: Survey, checks: list[LinkCheck]) -> None:
 
 
 def result_label(check: LinkCheck) -> str:
-    code = f" · HTTP {check['http_status']}" if check["http_status"] else ""
-    return STATUS[check["status"]] + code
+    return STATUS[check["status"]]
 
 
 def resource(label: str, url: str | None, checks: dict[str, LinkCheck]) -> str:
@@ -95,7 +94,7 @@ def resource(label: str, url: str | None, checks: dict[str, LinkCheck]) -> str:
     return (f'<div class="resource-block"><h4>{esc(label)}</h4>'
             f'<a class="resource-url" href="{esc(url)}">{esc(url)}</a>'
             f'<p class="check-meta">Last checked: <time datetime="{esc(checked)}">{esc(checked)}</time> (UTC)'
-            f'<br>{esc(result_label(check))}<br>Confirmed reachable: {esc(confirmed)}</p></div>')
+            f'<br>{esc(result_label(check))}<br>Last confirmed access: {esc(confirmed)}</p></div>')
 
 
 def record(work: Work, checks: dict[str, LinkCheck]) -> str:
